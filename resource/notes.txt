@@ -1,0 +1,3 @@
+
+how can the init process route messages to its children? may need a dispatcher anyway.
+
