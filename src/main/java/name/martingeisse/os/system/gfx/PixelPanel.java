@@ -19,29 +19,6 @@ public class PixelPanel extends JPanel {
         this.image = new BufferedImage(640, 480, BufferedImage.TYPE_INT_RGB);
         setSize(640, 480);
         setPreferredSize(new Dimension(640, 480));
-//        addKeyListener(new KeyAdapter() {
-//
-//            private final KeyCodeTranslator translator = new KeyCodeTranslator();
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                handle(translator.translate(e.getKeyCode(), false));
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                handle(translator.translate(e.getKeyCode(), true));
-//            }
-//
-//            private void handle(byte[] bytes) {
-//                if (bytes != null) {
-//                    for (byte b : bytes) {
-//                        inputBuffer.offer(b);
-//                    }
-//                }
-//            }
-//
-//        });
     }
 
     @Override

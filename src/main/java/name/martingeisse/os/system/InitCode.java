@@ -7,6 +7,7 @@ import name.martingeisse.os.core.ProcessContext;
 import name.martingeisse.os.core.message.dispatcher.ApplicationDispatcher;
 import name.martingeisse.os.system.gfx.GraphicsDriverCode;
 import name.martingeisse.os.system.gfx.GraphicsRequest;
+import name.martingeisse.os.system.gfx.KeyInputInitiation;
 
 public class InitCode implements Code {
 
@@ -15,7 +16,8 @@ public class InitCode implements Code {
 
         Process graphicsDriver = context.startChildProcess(new GraphicsDriverCode());
         ApplicationDispatcher dispatcher = new ApplicationDispatcher();
-        dispatcher.addMapping(GraphicsRequest.class, graphicsDriver);
+        dispatcher.addRequestMapping(GraphicsRequest.class, graphicsDriver);
+        dispatcher.addSubscriptionMapping(KeyInputInitiation.class, graphicsDriver);
 
         context.startChildProcess(new ApplicationCode(), dispatcher);
 

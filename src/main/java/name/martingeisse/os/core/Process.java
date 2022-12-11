@@ -1,10 +1,11 @@
 package name.martingeisse.os.core;
 
-import name.martingeisse.os.core.message.ClientRequestCycle;
-import name.martingeisse.os.core.message.Request;
-import name.martingeisse.os.core.message.ServerRequestCycle;
+import name.martingeisse.os.core.message.request.ClientRequestCycle;
+import name.martingeisse.os.core.message.request.Request;
+import name.martingeisse.os.core.message.request.ServerRequestCycle;
 import name.martingeisse.os.core.message.dispatcher.NullDispatcher;
 import name.martingeisse.os.core.message.dispatcher.RequestDispatcher;
+import name.martingeisse.os.core.message.subscription.*;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -69,6 +70,11 @@ public class Process {
         return finished;
     }
 
+    // not public API
+    public void postSubscriptionCancellationPseudoRequest(SubscriptionCancellationPseudoRequest pseudoRequest) {
+        incomingRequestQueue.add(new ServerRequestCycle(pseudoRequest, null));
+    }
+
     class ProcessContextImpl implements ProcessContext {
 
         @Override
@@ -81,6 +87,23 @@ public class Process {
             Process destination = requestDispatcher.dispatch(request, Process.this);
             destination.incomingRequestQueue.add(serverRequestCycle);
             return clientRequestCycle;
+        }
+
+        @Override
+        public ClientSubscriptionCycle subscribe(SubscriptionInitiation initiation) {
+            ClientSubscriptionCycle clientSubscriptionCycle = new ClientSubscriptionCycle();
+            for (Process destination : requestDispatcher.dispatch(initiation, Process.this)) {
+
+                // create a new server subscription cycle
+                ServerSubscriptionCycle serverSubscriptionCycle = new ServerSubscriptionCycle(clientSubscriptionCycle, destination);
+                clientSubscriptionCycle.serverSubscriptionCycles.put(serverSubscriptionCycle, serverSubscriptionCycle);
+
+                // send a pseudo-request to the server
+                SubscriptionInitiationPseudoRequest pseudoRequest = new SubscriptionInitiationPseudoRequest(initiation, serverSubscriptionCycle);
+                destination.incomingRequestQueue.add(new ServerRequestCycle(pseudoRequest, null));
+
+            }
+            return clientSubscriptionCycle;
         }
 
         @Override

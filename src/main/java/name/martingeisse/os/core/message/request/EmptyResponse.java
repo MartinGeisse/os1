@@ -1,4 +1,4 @@
-package name.martingeisse.os.core.message;
+package name.martingeisse.os.core.message.request;
 
 /**
  * Used for requests that do not expect any response data, to indicate that the request was processed without errors.

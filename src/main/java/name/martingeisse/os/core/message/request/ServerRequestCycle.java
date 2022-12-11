@@ -1,4 +1,4 @@
-package name.martingeisse.os.core.message;
+package name.martingeisse.os.core.message.request;
 
 public final class ServerRequestCycle {
 
@@ -15,6 +15,9 @@ public final class ServerRequestCycle {
     }
 
     public void respond(Response response) {
+        if (clientRequestCycle == null) {
+            throw new RuntimeException("trying to respond to a pseudo-request");
+        }
         clientRequestCycle.respond(response);
     }
 

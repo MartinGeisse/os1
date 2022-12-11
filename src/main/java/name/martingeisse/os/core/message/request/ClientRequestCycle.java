@@ -1,4 +1,4 @@
-package name.martingeisse.os.core.message;
+package name.martingeisse.os.core.message.request;
 
 import java.util.concurrent.atomic.AtomicReference;
 

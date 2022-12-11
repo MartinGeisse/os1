@@ -1,0 +1,18 @@
+// TODO accepting a subscription conflicts with accepting requests. Should a server just broadcast messages? but
+// then it cannot keep context with a subscription. Is that a good thing?
+//
+// The server should not have to manage subscription itself. The OS can do that. This means that the server does not
+// have to accept subscriptions for the mechanism, just for any server-side context data.
+//
+// How is context data used when broadcasting messages? Is it useful to attach context data to a subscription at all?
+// GraphQL does it, but that isn't a good model for how we should work. I assume that subscriptions rarely change
+// things, they just listen to events. So context data is mostly filtering, MAYBE transformation (mostly for versioning
+// and compatibility). Does a subscription generate events that would otherwise not occur?
+// Example: A clock / timer service could generate events based on subscriptions that would not otherwise occur
+// because such a service would not redundantly fire an event every second. Such a service would takw a subscription
+// initiation like a request. (I thought that a pseudo-response would be needed that causes the OS to finish setting
+// up the subscription, but there actually isn't a lot to finsh here -- a subscription works by the server sending
+// events to it.
+// ... only if the OS manages all subscriptions, then finishing means that the subscription appears there. Is that
+// a bad idea? By not finishing, a subscription could appear as a pseudo-request that needs no response and the server
+// manages subscriptions itself. This is actually simpler than the OS managing subscriptions.
