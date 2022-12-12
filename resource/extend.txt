@@ -1,4 +1,9 @@
 
+graphics / sound. straightforward <-- this is important. I can do this without thinking about it and without knowing
+what is the right next step.
+
+********************************************************************************************************************
+
 file access
 - but graphics files should be handled by the GUI or GFX server process
 - maybe later
