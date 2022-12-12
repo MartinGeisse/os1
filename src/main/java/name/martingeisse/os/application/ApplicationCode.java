@@ -3,8 +3,8 @@ package name.martingeisse.os.application;
 import name.martingeisse.os.core.Code;
 import name.martingeisse.os.core.ProcessContext;
 import name.martingeisse.os.core.message.subscription.ClientSubscriptionCycle;
-import name.martingeisse.os.system.gfx.DrawRectangleRequest;
-import name.martingeisse.os.system.gfx.KeyInputInitiation;
+import name.martingeisse.os.system.gfx.message.DrawRectangleRequest;
+import name.martingeisse.os.system.gfx.message.KeyInputInitiation;
 
 public class ApplicationCode implements Code {
 

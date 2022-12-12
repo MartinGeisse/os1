@@ -1,4 +1,4 @@
-package name.martingeisse.os.system.gfx;
+package name.martingeisse.os.system.gfx.message;
 
 public final class DrawRectangleRequest extends GraphicsRequest {
 

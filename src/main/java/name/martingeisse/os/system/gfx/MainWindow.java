@@ -1,21 +1,17 @@
 package name.martingeisse.os.system.gfx;
 
-import name.martingeisse.os.core.message.request.EmptyResponse;
-import name.martingeisse.os.core.message.subscription.ServerSubscriptionCycle;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class MainWindow extends JFrame {
 
     private final Client client;
     private final JPanel panel;
     private final BufferedImage image;
+    private final AtomicBoolean dirty = new AtomicBoolean(true);
 
     public MainWindow(Client client) {
         super("Pixel Display");
@@ -40,7 +36,7 @@ public final class MainWindow extends JFrame {
         setVisible(true);
         new Timer(20, event -> {
             if (dirty.getAndSet(false)) {
-                pixelPanel.repaint();
+                panel.repaint();
             }
         }).start();
 
@@ -49,6 +45,10 @@ public final class MainWindow extends JFrame {
 
     public Graphics createGraphics() {
         return image.createGraphics();
+    }
+
+    public void markDirty() {
+        dirty.set(true);
     }
 
     public interface Client extends KeyListener {

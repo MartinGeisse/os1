@@ -6,8 +6,8 @@ import name.martingeisse.os.core.Process;
 import name.martingeisse.os.core.ProcessContext;
 import name.martingeisse.os.core.message.dispatcher.ApplicationDispatcher;
 import name.martingeisse.os.system.gfx.GraphicsDriverCode;
-import name.martingeisse.os.system.gfx.GraphicsRequest;
-import name.martingeisse.os.system.gfx.KeyInputInitiation;
+import name.martingeisse.os.system.gfx.message.GraphicsRequest;
+import name.martingeisse.os.system.gfx.message.KeyInputInitiation;
 
 public class InitCode implements Code {
 
