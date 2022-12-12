@@ -1,0 +1,24 @@
+
+file access
+- but graphics files should be handled by the GUI or GFX server process
+- maybe later
+
+graphics
+- very specialized, but straightforward and allows gfx file handling
+
+GUI
+- separate GUI / gfx APIs
+- separate GUI / gfx server processes (?) - probably
+
+sound
+- basic sound output is simple
+- allows sound file handling
+
+network
+- ?
+
+high level APIs
+- permissions unclear, but maybe think about that later. Features first, to allow me to understand the system.
+- most high level system APIs need a file system first
+- probably a high level file system, not just files and folders
+
