@@ -1,0 +1,4 @@
+
+there is currently no good reason to build "cluster" messages that contain multiple things / commands that could be
+separate messages. If there is a reason for that at some point in the future, first try to invent generic cluster
+messages or improve the delivery mechanism.

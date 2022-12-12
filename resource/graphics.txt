@@ -1,0 +1,6 @@
+
+stateful graphics, e.g. setColor instead of color-in-each-message:
+- API cannot be used by multiple clients at the same time anymore
+    - this is okay for single-client / fullscreen canvas APIs
+    - otherwise we need context objects, either per-client implicitly or using explicit handles
+

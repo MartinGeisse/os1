@@ -5,6 +5,7 @@ import name.martingeisse.os.core.ProcessContext;
 import name.martingeisse.os.core.message.subscription.ClientSubscriptionCycle;
 import name.martingeisse.os.system.gfx.message.DrawRectangleRequest;
 import name.martingeisse.os.system.gfx.message.KeyInputInitiation;
+import name.martingeisse.os.system.gfx.message.SetColorRequest;
 
 public class ApplicationCode implements Code {
 
@@ -17,8 +18,10 @@ public class ApplicationCode implements Code {
             while (keySubscription.pollResponse() != null) {
                 x = 0;
             }
-            context.sendRequest(new DrawRectangleRequest(0, 0, 640, 480, 0, 0, 0));
-            context.sendRequest(new DrawRectangleRequest(x, 100, 50, 50, 255, 0, 0));
+            context.sendRequest(new SetColorRequest(0, 0, 0));
+            context.sendRequest(new DrawRectangleRequest(0, 0, 640, 480));
+            context.sendRequest(new SetColorRequest(255, 0, 0));
+            context.sendRequest(new DrawRectangleRequest(x, 100, 50, 50));
             //noinspection BusyWait
             Thread.sleep(10);
             x++;

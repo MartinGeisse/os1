@@ -9,6 +9,7 @@ import name.martingeisse.os.core.message.subscription.SubscriptionCancellationPs
 import name.martingeisse.os.core.message.subscription.SubscriptionInitiationPseudoRequest;
 import name.martingeisse.os.system.gfx.message.DrawRectangleRequest;
 import name.martingeisse.os.system.gfx.message.KeyInputInitiation;
+import name.martingeisse.os.system.gfx.message.SetColorRequest;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -40,6 +41,7 @@ public class GraphicsDriverCode implements Code {
 
         });
 
+        Color color = new Color(255, 255, 255);
         try {
             //noinspection InfiniteLoopStatement
             while (true) {
@@ -50,10 +52,13 @@ public class GraphicsDriverCode implements Code {
                     }
                 } else if (requestCycle.getRequest() instanceof SubscriptionCancellationPseudoRequest request) {
                     serverSubscriptionCycles.remove(request.subscriptionCycle);
+                } else if (requestCycle.getRequest() instanceof SetColorRequest request) {
+                    color = new Color(request.r, request.g, request.b);
+                    requestCycle.respond(new EmptyResponse());
                 } else if (requestCycle.getRequest() instanceof DrawRectangleRequest request) {
                     Graphics g = mainWindow.createGraphics();
                     try {
-                        g.setColor(new Color(request.r, request.g, request.b));
+                        g.setColor(color);
                         g.fillRect(request.x, request.y, request.w, request.h);
                     } finally {
                         g.dispose();
